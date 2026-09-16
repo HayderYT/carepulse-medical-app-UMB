@@ -16,6 +16,7 @@ import {
 import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
 
+// @ts-ignore
 import "react-datepicker/dist/react-datepicker.css";
 
 import CustomFormField, { FormFieldType } from "../CustomFormField";
@@ -72,7 +73,7 @@ export const AppointmentForm = ({
 
     try {
       if (type === "create" && patientId) {
-        const appointment = {
+        const appointmentData = {
           userId,
           patient: patientId,
           primaryPhysician: values.primaryPhysician,
@@ -82,7 +83,7 @@ export const AppointmentForm = ({
           note: values.note,
         };
 
-        const newAppointment = await createAppointment(appointment);
+        const newAppointment = await createAppointment(appointmentData);
 
         if (newAppointment) {
           form.reset();
@@ -103,7 +104,9 @@ export const AppointmentForm = ({
           type,
         };
 
-        const updatedAppointment = await updateAppointment(appointmentToUpdate);
+        const updatedAppointment = await updateAppointment(
+          appointmentToUpdate as any
+        );
 
         if (updatedAppointment) {
           setOpen && setOpen(false);
@@ -119,13 +122,13 @@ export const AppointmentForm = ({
   let buttonLabel;
   switch (type) {
     case "cancel":
-      buttonLabel = "Cancel Appointment";
+      buttonLabel = "Cancelar Cita";
       break;
     case "schedule":
-      buttonLabel = "Schedule Appointment";
+      buttonLabel = "Agendar Cita";
       break;
     default:
-      buttonLabel = "Submit Apppointment";
+      buttonLabel = "Crear Cita";
   }
 
   return (
@@ -133,9 +136,9 @@ export const AppointmentForm = ({
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
         {type === "create" && (
           <section className="mb-12 space-y-4">
-            <h1 className="header">New Appointment</h1>
+            <h1 className="header">Nueva Cita 🩺</h1>
             <p className="text-dark-700">
-              Request a new appointment in 10 seconds.
+              Solicita una nueva cita médica en pocos segundos.
             </p>
           </section>
         )}
@@ -146,8 +149,8 @@ export const AppointmentForm = ({
               fieldType={FormFieldType.SELECT}
               control={form.control}
               name="primaryPhysician"
-              label="Doctor"
-              placeholder="Select a doctor"
+              label="Doctor / Especialista"
+              placeholder="Selecciona un especialista"
             >
               {Doctors.map((doctor, i) => (
                 <SelectItem key={doctor.name + i} value={doctor.name}>
@@ -169,7 +172,7 @@ export const AppointmentForm = ({
               fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
               name="schedule"
-              label="Expected appointment date"
+              label="Fecha deseada para la cita"
               showTimeSelect
               dateFormat="MM/dd/yyyy  -  h:mm aa"
             />
@@ -181,8 +184,8 @@ export const AppointmentForm = ({
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name="reason"
-                label="Appointment reason"
-                placeholder="Annual montly check-up"
+                label="Motivo de la consulta"
+                placeholder="Ej: Chequeo médico general"
                 disabled={type === "schedule"}
               />
 
@@ -190,8 +193,8 @@ export const AppointmentForm = ({
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name="note"
-                label="Comments/notes"
-                placeholder="Prefer afternoon appointments, if possible"
+                label="Notas / Comentarios adicionales"
+                placeholder="Ej: Preferencia de atención en horas de la mañana"
                 disabled={type === "schedule"}
               />
             </div>
@@ -203,8 +206,8 @@ export const AppointmentForm = ({
             fieldType={FormFieldType.TEXTAREA}
             control={form.control}
             name="cancellationReason"
-            label="Reason for cancellation"
-            placeholder="Urgent meeting came up"
+            label="Motivo de la cancelación"
+            placeholder="Ej: Inconveniente personal de último momento"
           />
         )}
 
