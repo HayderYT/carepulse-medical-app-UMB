@@ -53,39 +53,39 @@ export const PatientForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
         <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there 👋</h1>
-          <p className="text-dark-700">Get started with appointments.</p>
+          <h1 className="header">¡Bienvenido! 👋</h1>
+          <p className="text-dark-700">Agenda tu cita médica en pocos pasos.</p>
         </section>
 
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}
           name="name"
-          label="Full name"
-          placeholder="John Doe"
+          label="Nombre completo"
+          placeholder="Ej: Haider Carreño"
           iconSrc="/assets/icons/user.svg"
-          iconAlt="user"
+          iconAlt="usuario"
         />
 
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}
           name="email"
-          label="Email"
-          placeholder="johndoe@gmail.com"
+          label="Correo electrónico"
+          placeholder="ejemplo@correo.com"
           iconSrc="/assets/icons/email.svg"
-          iconAlt="email"
+          iconAlt="correo"
         />
 
         <CustomFormField
           fieldType={FormFieldType.PHONE_INPUT}
           control={form.control}
           name="phone"
-          label="Phone number"
-          placeholder="(555) 123-4567"
+          label="Número de teléfono"
+          placeholder="300 123 4567"
         />
 
-        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
+        <SubmitButton isLoading={isLoading}>Solicitar Cita</SubmitButton>
       </form>
     </Form>
   );
