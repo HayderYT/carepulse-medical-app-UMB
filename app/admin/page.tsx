@@ -10,51 +10,67 @@ const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col space-y-14">
-      <header className="admin-header">
-        <Link href="/" className="cursor-pointer">
-          <Image
-            src="/assets/icons/logo-full.svg"
-            height={32}
-            width={162}
-            alt="logo"
-            className="h-8 w-fit"
-          />
+    <div className="mx-auto flex max-w-7xl flex-col space-y-14 bg-dark-300 p-6 md:p-10">
+      {/* Header Corporativo */}
+      <header className="admin-header bg-dark-400/80 backdrop-blur-md border border-dark-500/80 shadow-xl">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+            <Image
+              src="/assets/icons/logo-icon.svg"
+              height={1000}
+              width={1000}
+              alt="CarePulse Logo"
+              className="h-6 w-fit"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-white tracking-wide">
+              CarePulse
+            </span>
+            <span className="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-500/20">
+              UMB
+            </span>
+          </div>
         </Link>
 
-        <p className="text-16-semibold">Admin Dashboard</p>
+        <p className="text-16-semibold text-light-200">Panel de Administración</p>
       </header>
 
-      <main className="admin-main">
-        <section className="w-full space-y-4">
-          <h1 className="header">Welcome 👋</h1>
+      <main className="admin-main space-y-10">
+        {/* Encabezado Principal */}
+        <section className="w-full space-y-2">
+          <h1 className="header text-white">Panel de Control</h1>
           <p className="text-dark-700">
-            Start the day with managing new appointments
+            Gestión y monitoreo de solicitudes de citas médicas en tiempo real.
           </p>
         </section>
 
-        <section className="admin-stat">
+        {/* Tarjetas de Métricas Traducidas */}
+        <section className="admin-stat gap-6">
           <StatCard
             type="appointments"
             count={appointments.scheduledCount}
-            label="Scheduled appointments"
+            label="Citas Agendadas"
             icon={"/assets/icons/appointments.svg"}
           />
           <StatCard
             type="pending"
             count={appointments.pendingCount}
-            label="Pending appointments"
+            label="Citas Pendientes"
             icon={"/assets/icons/pending.svg"}
           />
           <StatCard
             type="cancelled"
             count={appointments.cancelledCount}
-            label="Cancelled appointments"
+            label="Citas Canceladas"
             icon={"/assets/icons/cancelled.svg"}
           />
         </section>
 
-        <DataTable columns={columns} data={appointments.documents} />
+        {/* Tabla de Datos */}
+        <div className="w-full rounded-2xl bg-dark-400/60 backdrop-blur-md p-4 border border-dark-500/80 shadow-2xl">
+          <DataTable columns={columns} data={appointments.documents} />
+        </div>
       </main>
     </div>
   );

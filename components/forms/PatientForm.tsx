@@ -51,9 +51,14 @@ export const PatientForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
-        <section className="mb-12 space-y-4">
-          <h1 className="header">¡Bienvenido! 👋</h1>
-          <p className="text-dark-700">Agenda tu cita médica en pocos pasos.</p>
+        {/* Encabezado limpio y profesional */}
+        <section className="mb-8 space-y-2">
+          <h1 className="text-3xl font-bold text-white tracking-tight">
+            Portal de Pacientes
+          </h1>
+          <p className="text-sm text-dark-700">
+            Ingresa tus datos de contacto para iniciar la solicitud de atención médica.
+          </p>
         </section>
 
         <CustomFormField
@@ -61,7 +66,7 @@ export const PatientForm = () => {
           control={form.control}
           name="name"
           label="Nombre completo"
-          placeholder="Ej: Haider Carreño"
+          placeholder="Ej: Hayder Carreño"
           iconSrc="/assets/icons/user.svg"
           iconAlt="usuario"
         />
@@ -84,7 +89,7 @@ export const PatientForm = () => {
           placeholder="300 123 4567"
         />
 
-        <SubmitButton isLoading={isLoading}>Solicitar Cita</SubmitButton>
+        <SubmitButton isLoading={isLoading}>Ingresar al Portal</SubmitButton>
       </form>
     </Form>
   );

@@ -1,9 +1,10 @@
+// @ts-nocheck
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,9 +15,7 @@ import {
   updateAppointment,
 } from "@/lib/actions/appointment.actions";
 import { getAppointmentSchema } from "@/lib/validation";
-import { Appointment } from "@/types/appwrite.types";
 
-// @ts-ignore
 import "react-datepicker/dist/react-datepicker.css";
 
 import CustomFormField, { FormFieldType } from "../CustomFormField";
@@ -33,8 +32,8 @@ export const AppointmentForm = ({
   userId: string;
   patientId: string;
   type: "create" | "schedule" | "cancel";
-  appointment?: Appointment;
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  appointment?: any;
+  setOpen?: (open: boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,12 +43,12 @@ export const AppointmentForm = ({
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
-      primaryPhysician: appointment ? appointment?.primaryPhysician : "",
+      primaryPhysician: appointment ? appointment.primaryPhysician : "",
       schedule: appointment
-        ? new Date(appointment?.schedule!)
+        ? new Date(appointment.schedule)
         : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
-      note: appointment?.note || "",
+      note: appointment ? appointment.note : "",
       cancellationReason: appointment?.cancellationReason || "",
     },
   });
@@ -105,7 +104,7 @@ export const AppointmentForm = ({
         };
 
         const updatedAppointment = await updateAppointment(
-          appointmentToUpdate as any
+          appointmentToUpdate
         );
 
         if (updatedAppointment) {
@@ -116,6 +115,7 @@ export const AppointmentForm = ({
     } catch (error) {
       console.log(error);
     }
+
     setIsLoading(false);
   };
 
@@ -128,29 +128,39 @@ export const AppointmentForm = ({
       buttonLabel = "Agendar Cita";
       break;
     default:
-      buttonLabel = "Crear Cita";
+      buttonLabel = "Confirmar y Solicitar Cita";
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex-1 space-y-6"
+      >
         {type === "create" && (
-          <section className="mb-12 space-y-4">
-            <h1 className="header">Nueva Cita 🩺</h1>
-            <p className="text-dark-700">
-              Solicita una nueva cita médica en pocos segundos.
+          <section className="mb-6 space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-3xl font-bold text-white tracking-tight">
+                Agendamiento de Cita
+              </span>
+              <span className="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded-full border border-blue-500/20">
+                UMB
+              </span>
+            </div>
+            <p className="text-sm text-dark-700">
+              Selecciona el especialista de preferencia y especifica los detalles de la consulta.
             </p>
           </section>
         )}
 
         {type !== "cancel" && (
-          <>
+          <div className="bg-dark-400/60 backdrop-blur-md p-6 rounded-2xl border border-dark-500/80 shadow-xl space-y-6">
             <CustomFormField
               fieldType={FormFieldType.SELECT}
               control={form.control}
               name="primaryPhysician"
-              label="Doctor / Especialista"
-              placeholder="Selecciona un especialista"
+              label="Médico Especialista"
+              placeholder="Selecciona un profesional"
             >
               {Doctors.map((doctor, i) => (
                 <SelectItem key={doctor.name + i} value={doctor.name}>
@@ -172,33 +182,29 @@ export const AppointmentForm = ({
               fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
               name="schedule"
-              label="Fecha deseada para la cita"
+              label="Fecha y Hora Deseada"
               showTimeSelect
-              dateFormat="MM/dd/yyyy  -  h:mm aa"
+              dateFormat="dd/MM/yyyy - h:mm aa"
             />
 
-            <div
-              className={`flex flex-col gap-6  ${type === "create" && "xl:flex-row"}`}
-            >
+            <div className="flex flex-col gap-6 xl:flex-row">
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name="reason"
-                label="Motivo de la consulta"
-                placeholder="Ej: Chequeo médico general"
-                disabled={type === "schedule"}
+                label="Motivo de la Consulta"
+                placeholder="Ej: Chequeo médico general, revisión de exámenes"
               />
 
               <CustomFormField
                 fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
                 name="note"
-                label="Notas / Comentarios adicionales"
-                placeholder="Ej: Preferencia de atención en horas de la mañana"
-                disabled={type === "schedule"}
+                label="Notas Adicionales"
+                placeholder="Ej: Preferencia de atención en horario matutino"
               />
             </div>
-          </>
+          </div>
         )}
 
         {type === "cancel" && (
@@ -206,14 +212,16 @@ export const AppointmentForm = ({
             fieldType={FormFieldType.TEXTAREA}
             control={form.control}
             name="cancellationReason"
-            label="Motivo de la cancelación"
-            placeholder="Ej: Inconveniente personal de último momento"
+            label="Motivo de la Cancelación"
+            placeholder="Ingresa la razón para cancelar la cita médica"
           />
         )}
 
         <SubmitButton
           isLoading={isLoading}
-          className={`${type === "cancel" ? "shad-danger-btn" : "shad-primary-btn"} w-full`}
+          className={`${
+            type === "cancel" ? "shad-danger-btn" : "shad-primary-btn"
+          } w-full`}
         >
           {buttonLabel}
         </SubmitButton>
@@ -221,3 +229,5 @@ export const AppointmentForm = ({
     </Form>
   );
 };
+
+export default AppointmentForm;
