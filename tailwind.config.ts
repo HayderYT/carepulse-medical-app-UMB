@@ -22,12 +22,12 @@ const config = {
     extend: {
       colors: {
         green: {
-          500: "#24AE7C",
-          600: "#0D2A1F",
+          500: "#0066FF", // Azul brillante para botones principales e iconos
+          600: "#0A192F", // Azul marino oscuro para fondos de contenedores
         },
         blue: {
-          500: "#79B5EC",
-          600: "#152432",
+          500: "#38BDF8", // Azul cian para detalles destacados
+          600: "#0F172A", // Azul oscuro secundario
         },
         red: {
           500: "#F37877",
@@ -38,12 +38,12 @@ const config = {
           200: "#E8E9E9",
         },
         dark: {
-          200: "#0D0F10",
-          300: "#131619",
-          400: "#1A1D21",
-          500: "#363A3D",
-          600: "#76828D",
-          700: "#ABB8C4",
+          200: "#0B0F19", // Fondo ultra oscuro con tono azulado
+          300: "#111827", // Fondo de tarjetas
+          400: "#1E293B", // Bordes e inputs
+          500: "#334155",
+          600: "#64748B",
+          700: "#94A3B8",
         },
       },
       fontFamily: {
