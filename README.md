@@ -1,18 +1,60 @@
-# CarePulse — Plataforma de Gestión Médica y Citas
+# 🩺 CarePulse UMB - Sistema de Gestión de Citas Médicas
 
-Aplicación web desarrollada para la gestión integral de citas médicas, registro de pacientes e historial clínico, integrada con servicios en la nube para la automatización de notificaciones.
+![CarePulse Banner](https://img.shields.io/badge/Next.js-14-blue?style=for-the-badge&logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-blue?style=for-the-badge&logo=tailwindcss)
+![Appwrite](https://img.shields.io/badge/Appwrite-Backend-red?style=for-the-badge&logo=appwrite)
 
-## 🛠️ Stack Tecnológico
+## 📌 Descripción del Proyecto
 
-- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
-- **Backend & BaaS:** Appwrite (Autenticación, Base de Datos, Storage)
-- **Servicios API:** Twilio (Envío automatizado de SMS)
-- **Monitoreo:** Sentry
+**CarePulse UMB** es una plataforma web médica orientada a la gestión eficiente de pacientes y solicitudes de citas en línea. La aplicación permite a los usuarios registrarse, ingresar su historial clínico, solicitar citas con especialistas y gestionar o cancelar agendas desde el módulo administrativo.
 
-## 🚀 Funcionalidades Principales
+Este proyecto ha sido desarrollado como parte de las entregas prácticas para la asignatura de **Ingeniería Web II** en la **Universidad Manuela Beltrán**.
 
-- **Registro de Pacientes:** Formulario dinámico para la captura de datos personales, contacto de emergencia e información médica.
-- **Carga de Documentos:** Módulo para adjuntar y previsualizar documentos de identidad de forma segura.
-- **Agendamiento de Citas:** Selección de médicos especialistas y programación de fecha/hora.
-- **Panel de Administración (`/admin`):** Gestión, confirmación y cancelación de citas agendadas.
-- **Notificaciones Automáticas:** Confirmación inmediata vía SMS al teléfono del paciente tras la gestión de la cita.
+---
+
+## 👥 Integrantes del Equipo
+
+* **Heidy Valeria Asprilla Rubiano**
+* **Hayder Duvan Carreño Ramos**
+* **Paula Valentina Román Yepes**
+
+---
+
+## 🏫 Información Académica
+
+* **Institución:** Universidad Manuela Beltrán (UMB)
+* **Programa:** Ingeniería de Software
+* **Asignatura:** Ingeniería Web II
+* **Docente:** Prof. Kevin Andrés Quintero Córdoba
+* **Ubicación:** Bogotá, D. C.
+* **Año:** 2026
+
+---
+
+## 🚀 Características Principales
+
+- **Registro de Pacientes:** Captura de datos personales, contacto de emergencia, tipo de documento e historial clínico completo.
+- **Solicitud de Citas:** Selección de médico especialista, fecha/hora y motivo de la consulta.
+- **Panel Administrativo:** Módulo seguro mediante clave OTP para la gestión de estados de citas (Agendada, Pendiente, Cancelada).
+- **Interfaz Personalizada:** Diseño responsive e intuitivo optimizado en modo oscuro con paleta de tonos azules.
+- **Notificaciones:** Gestión del ciclo de vida de la cita médica.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+- **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
+- **Estilos:** [Tailwind CSS](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
+- **Backend & Base de Datos:** [Appwrite](https://appwrite.io/)
+- **Validación de Formularios:** React Hook Form & Zod
+
+---
+
+## ⚙️ Instalación y Configuración Local
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/HayderYT/carepulse-medical-app-UMB.git](https://github.com/HayderYT/carepulse-medical-app-UMB.git)
+   cd carepulse-medical-app-UMB
